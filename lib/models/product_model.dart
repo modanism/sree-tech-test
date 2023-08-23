@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 class ProductModel {
   DetailProduct? detailProduct;
   List<ListIndustry>? listIndustry;
@@ -11,6 +13,7 @@ class ProductModel {
       this.relatedProducts});
 
   ProductModel.fromJson(Map<String, dynamic> json) {
+    log('MASUK INI');
     detailProduct = json['detail_product'] != null
         ? new DetailProduct.fromJson(json['detail_product'])
         : null;

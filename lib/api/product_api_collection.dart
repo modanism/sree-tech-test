@@ -12,7 +12,7 @@ class ProductCollection {
   Future<ProductModel> getProductDetail() async {
     try {
       response = await getConnection("https://tradeasia.sg//en/dipentene");
-      log(response.toString());
+      log("AWAIT DONE");
       return ProductModel.fromJson(response!.data);
     } on DioException catch (e) {
       throw e.message!;

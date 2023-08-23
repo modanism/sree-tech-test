@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sree_test/api/product_api_collection.dart';
 import 'package:sree_test/bloc/product_event.dart';
@@ -13,6 +15,7 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
   void getProduct(GetProductEvent event, Emitter<ProductState> emit) async {
     try {
       emit(ProductState().copyWith(status: ProductStatus.initial));
+      log("MASUK HERE");
       final response = await api.getProductDetail();
 
       emit(ProductState()
@@ -20,6 +23,8 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     } catch (e) {
       emit(ProductState()
           .copyWith(status: ProductStatus.failure, message: e.toString()));
+
+      rethrow;
     }
   }
 }

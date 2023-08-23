@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+// import 'package:flutter_html/flutter_html.dart';
 import 'package:sree_test/bloc/product_bloc.dart';
 import 'package:sree_test/bloc/product_event.dart';
 import 'package:sree_test/bloc/product_state.dart';
@@ -64,6 +65,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   ProductBloc productBloc = ProductBloc();
+  ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
@@ -105,8 +107,46 @@ class _MyHomePageState extends State<MyHomePage> {
         bloc: productBloc,
         builder: (context, state) {
           if (state.status == ProductStatus.success) {
-            return Center(
-              child: Text("DONE"),
+            return SingleChildScrollView(
+              controller: scrollController,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Center(
+                  child: Column(
+                    children: [
+                      Text(
+                        state.product!.detailProduct!.productname!,
+                        textAlign: TextAlign.center,
+                      ),
+                      // Html(data: state.product!.detailProduct!.formula!),
+                      Text(
+                        state.product!.detailProduct!.iupacName!,
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        state.product!.detailProduct!.casNumber!,
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        state.product!.detailProduct!.formula!,
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        state.product!.detailProduct!.description!,
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        state.product!.detailProduct!.application!,
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        state.product!.detailProduct!.packagingName!,
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             );
           } else if (state.status == ProductStatus.failure) {
             log("ERROR : ${state.message}");
@@ -122,11 +162,6 @@ class _MyHomePageState extends State<MyHomePage> {
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
